@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "tridiagonal_matrix.hpp"
 
 int main() {
@@ -7,8 +8,9 @@ int main() {
     TridiagonalMatrix<double> system(n);
     std::vector<double> result = system.solve();
     for (double i : result) {
-        std::cout << i << " ";
+        std::cout << std::fixed << std::setprecision(3) << i << " ";
     }
+    std::cout << "\n";
     return 0;
 }
 
