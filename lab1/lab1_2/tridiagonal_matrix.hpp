@@ -63,22 +63,5 @@ std::vector<T> TridiagonalMatrix<T>::solve() {
     return x;
 }
 
-/*
-5
-8 4
--5 22 8
--5 -11 1
--9 -15 1
-1 7
-48 125 -43 18 -23
-
-
-4
-8 -2
--1 6 -2
-2 10 -4
--1 6
-6 3 8 5
- */
 
 #endif //LAB1_2_TRIDIAGONAL_MATRIX_HPP
