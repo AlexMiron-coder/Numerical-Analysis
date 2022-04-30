@@ -9,8 +9,11 @@ int main() {
     std::vector<double> result = system.solve();
     for (double i : result) {
         std::cout << std::fixed << std::setprecision(3) << i << " ";
+        //std::cout << i << " ";
     }
     std::cout << "\n";
+    if (system.checkResult(result)) std::cout << "OK!\n";
+    else std::cout << "ERROR!\n";
     return 0;
 }
 
