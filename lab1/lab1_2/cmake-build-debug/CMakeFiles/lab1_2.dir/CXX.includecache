@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_2/main.cpp
+iostream
+-
+iomanip
+-
+tridiagonal_matrix.hpp
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_2/tridiagonal_matrix.hpp
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_2/tridiagonal_matrix.hpp
+vector
+-
+
