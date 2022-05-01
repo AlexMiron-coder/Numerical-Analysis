@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_4/main.cpp
+system_solver.hpp
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_4/system_solver.hpp
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_4/matrix.hpp
+vector
+-
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_4/system_solver.hpp
+iostream
+-
+math.h
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_4/math.h
+matrix.hpp
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_4/matrix.hpp
+
