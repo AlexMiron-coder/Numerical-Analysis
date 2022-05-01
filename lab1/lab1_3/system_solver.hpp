@@ -11,6 +11,7 @@ class system_solver {
 public:
     system_solver(size_t, T);
     std::vector<T> fixed_point_iterations();
+    std::vector<T> seidel();
     std::pair<Matrix<T>, std::vector<T>> jacobi_method();
     T norm_vec(std::vector<T>);
     T norm_matrix(Matrix<T>);
@@ -97,6 +98,34 @@ std::vector<T> system_solver<T>::fixed_point_iterations() {
         x.push_back(alpha_beta.second + (alpha_beta.first * x[k]));
         k++;
         eps_k = (norm_alpha / (1 - norm_alpha)) * norm_vec(x[k] - x[k - 1]);
+    }
+    return x[k];
+}
+
+template<class T>
+std::vector<T> system_solver<T>::seidel() {
+    std::vector<std::vector<T>> x;
+    std::pair<Matrix<T>, std::vector<T>> alpha_beta = jacobi_method();
+    x.push_back(alpha_beta.second);
+    T eps_k = eps + 1;
+    size_t k = 0;
+    T norm_alpha = norm_matrix(alpha_beta.first);
+    T norm_c = norm_matrix(alpha_beta.first);
+
+    while (eps_k >= eps) {
+        std::vector<T> xn(a.size(), 0);
+        for(int i = 0; i < a.size(); ++i) {
+            xn[i] = alpha_beta.second[i];
+            for(int j = 0; j < i; ++j) {
+                xn[i] += alpha_beta.first[i][j] * xn[j];
+            }
+            for(int j = i; j < a.size(); ++j) {
+                xn[i] += alpha_beta.first[i][j] * x[k][j];
+            }
+        }
+        x.push_back(xn);
+        k++;
+        eps_k = (norm_c / (1 - norm_alpha)) * norm_vec(x[k] - x[k - 1]);
     }
     return x[k];
 }

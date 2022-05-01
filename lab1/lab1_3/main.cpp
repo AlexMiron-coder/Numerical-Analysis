@@ -5,8 +5,13 @@ int main() {
     size_t n; double eps;
     std::cin >> n >> eps;
     system_solver<double> system(n, eps);
-    std::vector<double> res = system.fixed_point_iterations();
-    for (double re : res) {
+    std::vector<double> res1 = system.fixed_point_iterations();
+    for (double re : res1) {
+        std::cout << std::fixed << std::setprecision(3) << re << " ";
+    }
+    std::cout << "\n";
+    std::vector<double> res2 = system.seidel();
+    for (double re : res2) {
         std::cout << std::fixed << std::setprecision(3) << re << " ";
     }
     return 0;
