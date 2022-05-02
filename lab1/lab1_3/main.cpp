@@ -5,15 +5,27 @@ int main() {
     size_t n; double eps;
     std::cin >> n >> eps;
     system_solver<double> system(n, eps);
-    std::vector<double> res1 = system.fixed_point_iterations();
+    size_t k1; size_t k2;
+
+    std::cout << "Precision: " << eps << "\n\n";
+
+    std::cout << "Fixed-point iteration method:\n";
+    std::vector<double> res1 = system.fixed_point_iterations(k1);
+    std::cout << "num of iterations: " << k1 << "\n";
+    std::cout << "solution:\n";
     for (double re : res1) {
         std::cout << std::fixed << std::setprecision(3) << re << " ";
     }
-    std::cout << "\n";
-    std::vector<double> res2 = system.seidel();
+    std::cout << "\n\n";
+
+    std::cout << "Seidel method:\n";
+    std::vector<double> res2 = system.seidel(k2);
+    std::cout << "num of iterations: " << k2 << "\n";
+    std::cout << "solution:\n";
     for (double re : res2) {
         std::cout << std::fixed << std::setprecision(3) << re << " ";
     }
+    std::cout << "\n";
     return 0;
 }
 /*

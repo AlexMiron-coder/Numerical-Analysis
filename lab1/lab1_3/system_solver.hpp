@@ -10,8 +10,8 @@ template<class T>
 class system_solver {
 public:
     system_solver(size_t, T);
-    std::vector<T> fixed_point_iterations();
-    std::vector<T> seidel();
+    std::vector<T> fixed_point_iterations(size_t &);
+    std::vector<T> seidel(size_t &);
     std::pair<Matrix<T>, std::vector<T>> jacobi_method();
     T norm_vec(std::vector<T>);
     T norm_matrix(Matrix<T>);
@@ -82,7 +82,7 @@ std::pair<Matrix<T>, std::vector<T>> system_solver<T>::jacobi_method() {
 }
 
 template<class T>
-std::vector<T> system_solver<T>::fixed_point_iterations() {
+std::vector<T> system_solver<T>::fixed_point_iterations(size_t &iter) {
     std::vector<std::vector<T>> x;
     std::pair<Matrix<T>, std::vector<T>> alpha_beta = jacobi_method();
     x.push_back(alpha_beta.second);
@@ -99,11 +99,12 @@ std::vector<T> system_solver<T>::fixed_point_iterations() {
         k++;
         eps_k = (norm_alpha / (1 - norm_alpha)) * norm_vec(x[k] - x[k - 1]);
     }
+    iter = k;
     return x[k];
 }
 
 template<class T>
-std::vector<T> system_solver<T>::seidel() {
+std::vector<T> system_solver<T>::seidel(size_t &iter) {
     std::vector<std::vector<T>> x;
     std::pair<Matrix<T>, std::vector<T>> alpha_beta = jacobi_method();
     x.push_back(alpha_beta.second);
@@ -127,6 +128,7 @@ std::vector<T> system_solver<T>::seidel() {
         k++;
         eps_k = (norm_c / (1 - norm_alpha)) * norm_vec(x[k] - x[k - 1]);
     }
+    iter = k;
     return x[k];
 }
 

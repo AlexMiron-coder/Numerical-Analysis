@@ -9,7 +9,6 @@ int main() {
     std::vector<double> result = system.solve();
     for (double i : result) {
         std::cout << std::fixed << std::setprecision(3) << i << " ";
-        //std::cout << i << " ";
     }
     std::cout << "\n";
     if (system.checkResult(result)) std::cout << "OK!\n";
@@ -25,12 +24,4 @@ int main() {
 -9 -15 1
 1 7
 48 125 -43 18 -23
-
-
-4
-8 -2
--1 6 -2
-2 10 -4
--1 6
-6 3 8 5
  */
