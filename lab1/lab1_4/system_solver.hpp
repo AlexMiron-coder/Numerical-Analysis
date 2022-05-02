@@ -95,5 +95,4 @@ std::vector<T> system_solver<T>::jacobi_rotation() {
     return lambda;
 }
 
-
 #endif //LAB1_4_SYSTEM_SOLVER_HPP
