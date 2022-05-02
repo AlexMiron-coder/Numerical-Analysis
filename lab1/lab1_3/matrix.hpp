@@ -107,17 +107,5 @@ Matrix<T> &Matrix<T>::operator=(const Matrix<T> &matrix) {
 
 
 
-/*template<class T>
-std::vector<T> operator*(Matrix<T> &mat, std::vector<T> &vec) {
-    std::vector<T> result(vec.size(), 0);
-    T res = 0;
-    for (size_t i = 0; i < vec.size(); i++) {
-        for (size_t j = 0; j < vec.size(); j++) {
-            result[i] += mat[i][j] * vec[j];
-        }
-    }
-    return result;
-}*/
-
 
 #endif //LAB1_3_MATRIX_HPP
