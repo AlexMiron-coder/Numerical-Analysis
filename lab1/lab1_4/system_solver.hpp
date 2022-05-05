@@ -12,11 +12,12 @@ template<class T>
 class system_solver{
 public:
     explicit system_solver(size_t, T);
-    bool t(Matrix<T>);
-    std::pair<size_t, size_t> max_elem(Matrix<T>);
-    std::vector<T> jacobi_rotation(Matrix<T> &);
+    bool t(matrix<T>);
+    std::pair<size_t, size_t> max_elem(matrix<T>);
+    std::vector<T> jacobi_rotation(matrix<T> &);
+    bool check_eigenvalues_eigenvectors(std::vector<T>, matrix<T>);
 private:
-    Matrix<T> a;
+    matrix<T> a;
     T eps;
 };
 
@@ -30,7 +31,7 @@ system_solver<T>::system_solver(size_t n, T epsilon): a(n) {
 
 
 template<class T>
-std::pair<size_t, size_t> system_solver<T>::max_elem(Matrix<T> a_k) {
+std::pair<size_t, size_t> system_solver<T>::max_elem(matrix<T> a_k) {
     T max = std::abs(a_k[0][1]);
     size_t i = 0; size_t j = 1;
     for(size_t m = 0; m < a_k.size(); ++m) {
@@ -48,7 +49,7 @@ std::pair<size_t, size_t> system_solver<T>::max_elem(Matrix<T> a_k) {
 }
 
 template<class T>
-bool system_solver<T>::t(Matrix<T> matrix) {
+bool system_solver<T>::t(matrix<T> matrix) {
     T sum = 0;
     for(int i = 0; i < matrix.size(); ++i) {
         for(int j = 0; j < matrix.size(); ++j) {
@@ -62,11 +63,11 @@ bool system_solver<T>::t(Matrix<T> matrix) {
 }
 
 template<class T>
-std::vector<T> system_solver<T>::jacobi_rotation(Matrix<T> &vecs) {
+std::vector<T> system_solver<T>::jacobi_rotation(matrix<T> &vecs) {
     std::vector<T> lambda(a.size());
-    Matrix<T> a_k = a;
-    Matrix<T> u(a.size());
-    Matrix<T> u_result(a.size());
+    matrix<T> a_k = a;
+    matrix<T> u(a.size());
+    matrix<T> u_result(a.size());
     u_result.identity();
     size_t i; size_t j;
 
@@ -85,7 +86,7 @@ std::vector<T> system_solver<T>::jacobi_rotation(Matrix<T> &vecs) {
         u[j][i] = std::sin(phi);
         u[j][j] = std::cos(phi);
 
-        Matrix<T> u_transpose = u.transpose();
+        matrix<T> u_transpose = u.transpose();
         a_k = u_transpose * a_k;
         a_k = a_k * u;
         u_result = u_result * u;
@@ -93,15 +94,27 @@ std::vector<T> system_solver<T>::jacobi_rotation(Matrix<T> &vecs) {
     for (size_t k = 0; k < a_k.size(); k++) {
         lambda[k] = a_k[k][k];
     }
-
-    /*for (size_t k = 0; k < a.size(); k++) {
-        for (size_t l = 0; l < a.size(); l++) {
-            std::cout << u_result[k][l] << " ";
-        }
-        std::cout << "\n";
-    }*/
     vecs = u_result;
     return lambda;
+}
+
+template<class T>
+bool system_solver<T>::check_eigenvalues_eigenvectors(std::vector<T> values, matrix<T> vectors) {
+    size_t n = values.size();
+    for (size_t k = 0; k < n; k++) {
+        T tmp_right = 0;
+        T tmp_left = 0;
+        for (size_t i = 0; i < n; i++) {
+            tmp_right += values[k] * vectors[i][k];
+            for (size_t j = 0; j < n; j++) {
+                tmp_left += a[i][j] * vectors[j][k];
+            }
+        }
+        if (std::abs(tmp_right - tmp_left) > eps) return false;
+        tmp_left = 0;
+        tmp_right = 0;
+    }
+    return true;
 }
 
 #endif //LAB1_4_SYSTEM_SOLVER_HPP

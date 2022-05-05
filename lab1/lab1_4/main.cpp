@@ -4,7 +4,7 @@ int main() {
     size_t n; double eps;
     std::cin >> n >> eps;
     system_solver<double> system(n, eps);
-    Matrix<double> vecs(n);
+    matrix<double> vecs(n);
     std::vector<double> result = system.jacobi_rotation(vecs);
 
     std::cout << "precision = " << eps << "\n\n";
@@ -20,6 +20,11 @@ int main() {
         }
         std::cout << "\n";
     }
+
+    std::cout << "\ncheck eigen values and eigen vectors: Ax = λx\n";
+    bool check = system.check_eigenvalues_eigenvectors(result, vecs);
+    if (check) std::cout << "OK!\n";
+    else std::cout << "ERROR!\n";
     return 0;
 }
 
