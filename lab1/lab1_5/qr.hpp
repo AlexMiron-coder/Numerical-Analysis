@@ -14,8 +14,8 @@ template<class T>
 class qr{
 public:
     explicit qr(size_t, T);
-    bool check(std::vector<std::complex<T>>);
-    Matrix<T> Householder(std::vector<T>);
+    bool check(std::vector<std::complex<T>> &);
+    Matrix<T> householder(std::vector<T>);
     int signum (T);
     std::vector<std::complex<T>> qr_decompose();
 private:
@@ -37,7 +37,7 @@ int qr<T>::signum(T number) {
 }
 
 template<class T>
-bool qr<T>::check(std::vector<std::complex<T>> old_lambda) {
+bool qr<T>::check(std::vector<std::complex<T>> &old_lambda) {
     T sum = 0;
     for(size_t i = 0; i < a.size() - 1; i++) {
         for (size_t j = i + 1; j < a.size(); j++) {
@@ -87,7 +87,7 @@ bool qr<T>::check(std::vector<std::complex<T>> old_lambda) {
 
 
 template<class T>
-Matrix<T> qr<T>::Householder(std::vector<T> v) {
+Matrix<T> qr<T>::householder(std::vector<T> v) {
     Matrix<T> v1(a.size());
     T v2 = 0;
     Matrix<T> e(a.size());
@@ -107,7 +107,7 @@ Matrix<T> qr<T>::Householder(std::vector<T> v) {
     // (2 * v * v^T) / (v^T * v) -> matrix
     for (size_t i = 0; i < a.size(); i++) {
         for (size_t j = 0; j < a.size(); j++) {
-            v1[i][j] = 2* v1[i][j] / v2;
+            v1[i][j] = 2 * v1[i][j] / v2;
         }
     }
     // e - (2 * v * v^T) / (v^T * v) -> h - matrix
@@ -145,7 +145,7 @@ std::vector<std::complex<T>> qr<T>::qr_decompose() {
                 v[j] = r[j][i];
             }
 
-            Matrix<T> h = Householder(v);
+            Matrix<T> h = householder(v);
             r = h * r;
             q = q * h;
         }

@@ -13,6 +13,8 @@ matrix.hpp
 /home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_1/main.cpp
 iostream
 -
+iomanip
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_1/iomanip
 lu.hpp
 /home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_1/lu.hpp
 
