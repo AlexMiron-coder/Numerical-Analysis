@@ -24,17 +24,17 @@ std::vector<T> operator - (const std::vector<T> &lhs, const std::vector<T> &rhs)
 
 
 template<class T>
-class Matrix{
+class matrix{
 public:
-    Matrix();
-    explicit Matrix(size_t);
-    Matrix(size_t, size_t);
+    matrix();
+    explicit matrix(size_t);
+    matrix(size_t, size_t);
     void push_matrix();
     bool isEmpty();
     size_t size();
     std::vector<T>& operator [](size_t);
-    Matrix<T>& operator = (const Matrix<T> &);
-    friend std::vector<T> operator * (Matrix<T> &mat, std::vector<T> &vec) {
+    matrix<T>& operator = (const matrix<T> &);
+    friend std::vector<T> operator * (matrix<T> &mat, std::vector<T> &vec) {
         std::vector<T> result(vec.size(), 0);
         T res = 0;
         for (size_t i = 0; i < vec.size(); i++) {
@@ -53,42 +53,42 @@ private:
 
 // Implementation
 template<class T>
-Matrix<T>::Matrix() {
+matrix<T>::matrix() {
     _n = 0, _m = 0;
     _data = std::vector<std::vector<T>>();
 }
 
 template<class T>
-Matrix<T>::Matrix(size_t n) {
+matrix<T>::matrix(size_t n) {
     _n = n, _m = n;
     _data = std::vector<std::vector<T>>(n, std::vector<T>(n));
 }
 
 template<class T>
-Matrix<T>::Matrix(size_t n, size_t m) {
+matrix<T>::matrix(size_t n, size_t m) {
     _n = n, _m = m;
     _data = std::vector<std::vector<T>>(n, std::vector<T>(m));
 }
 
 template<class T>
-std::vector<T> &Matrix<T>::operator[](size_t index) {
+std::vector<T> &matrix<T>::operator[](size_t index) {
     return _data[index];
 }
 
 template<class T>
-size_t Matrix<T>::size() {
+size_t matrix<T>::size() {
     return _n;
 }
 
 template<class T>
-bool Matrix<T>::isEmpty() {
+bool matrix<T>::isEmpty() {
     if (_data.empty())
         return true;
     return false;
 }
 
 template<class T>
-void Matrix<T>::push_matrix() {
+void matrix<T>::push_matrix() {
     for (size_t i = 0; i < _n; i++) {
         for (size_t j = 0; j < _m; j++) {
             std::cin >> _data[i][j];
@@ -98,7 +98,7 @@ void Matrix<T>::push_matrix() {
 
 
 template<class T>
-Matrix<T> &Matrix<T>::operator=(const Matrix<T> &matrix) {
+matrix<T> &matrix<T>::operator=(const matrix<T> &matrix) {
     _n = matrix._n;
     _m = matrix._m;
     _data = matrix._data;

@@ -2,9 +2,10 @@
 #define LAB1_3_SYSTEM_SOLVER_HPP
 
 #include <iostream>
-#include "math.h"
+#include <math.h>
 #include "matrix.hpp"
 
+static const double EPS = 0.01;
 
 template<class T>
 class system_solver {
@@ -12,12 +13,13 @@ public:
     system_solver(size_t, T);
     std::vector<T> fixed_point_iterations(size_t &);
     std::vector<T> seidel(size_t &);
-    std::pair<Matrix<T>, std::vector<T>> jacobi_method();
+    std::pair<matrix<T>, std::vector<T>> jacobi_method();
     T norm_vec(std::vector<T>);
-    T norm_matrix(Matrix<T>);
+    T norm_matrix(matrix<T>);
     T sum_abs(std::vector<T>);
+    bool check_solution(std::vector<T>);
 private:
-    Matrix<T> a;
+    matrix<T> a;
     std::vector<T> b;
     T eps;
 };
@@ -38,15 +40,15 @@ system_solver<T>::system_solver(size_t n, T epsilon): a(n), b(n) {
 // Norms
 template<class T>
 T system_solver<T>::norm_vec(std::vector<T> vector) {
-    T max_vector = abs(vector[0]);
+    T max_vector = std::abs(vector[0]);
     for (size_t i = 1; i < vector.size(); i++) {
-        if (abs(vector[i]) > max_vector) max_vector = abs(vector[i]);
+        if (std::abs(vector[i]) > max_vector) max_vector = abs(vector[i]);
     }
     return max_vector;
 }
 
 template<class T>
-T system_solver<T>::norm_matrix(Matrix<T> matrix) {
+T system_solver<T>::norm_matrix(matrix<T> matrix) {
     T max_matrix = sum_abs(matrix[0]);
     for (size_t i = 1; i < matrix.size(); i++) {
         if (sum_abs(matrix[i]) > max_matrix) max_matrix = sum_abs(matrix[i]);
@@ -56,17 +58,17 @@ T system_solver<T>::norm_matrix(Matrix<T> matrix) {
 
 template<class T>
 T system_solver<T>::sum_abs(std::vector<T> vec) {
-    T sum = fabs(vec[0]);
+    T sum = std::fabs(vec[0]);
     for(size_t i = 1; i < vec.size(); i++) {
-        sum += fabs(vec[i]);
+        sum += std::fabs(vec[i]);
     }
     return sum;
 }
 
 // Iter methods
 template<class T>
-std::pair<Matrix<T>, std::vector<T>> system_solver<T>::jacobi_method() {
-    Matrix<T> alpha(a.size());
+std::pair<matrix<T>, std::vector<T>> system_solver<T>::jacobi_method() {
+    matrix<T> alpha(a.size());
     std::vector<T> beta(b.size());
     for (size_t i = 0; i < a.size(); i++) {
         beta[i] = b[i] / a[i][i];
@@ -84,7 +86,7 @@ std::pair<Matrix<T>, std::vector<T>> system_solver<T>::jacobi_method() {
 template<class T>
 std::vector<T> system_solver<T>::fixed_point_iterations(size_t &iter) {
     std::vector<std::vector<T>> x;
-    std::pair<Matrix<T>, std::vector<T>> alpha_beta = jacobi_method();
+    std::pair<matrix<T>, std::vector<T>> alpha_beta = jacobi_method();
     x.push_back(alpha_beta.second);
     T eps_k = eps + 1;
     size_t k = 0;
@@ -106,7 +108,7 @@ std::vector<T> system_solver<T>::fixed_point_iterations(size_t &iter) {
 template<class T>
 std::vector<T> system_solver<T>::seidel(size_t &iter) {
     std::vector<std::vector<T>> x;
-    std::pair<Matrix<T>, std::vector<T>> alpha_beta = jacobi_method();
+    std::pair<matrix<T>, std::vector<T>> alpha_beta = jacobi_method();
     x.push_back(alpha_beta.second);
     T eps_k = eps + 1;
     size_t k = 0;
@@ -130,6 +132,19 @@ std::vector<T> system_solver<T>::seidel(size_t &iter) {
     }
     iter = k;
     return x[k];
+}
+
+template<class T>
+bool system_solver<T>::check_solution(std::vector<T> x) {
+    T tmp_b = 0; size_t n = a.size();
+    for (size_t i = 0; i < n; i++) {
+        for (size_t j = 0; j < n; j++) {
+            tmp_b += a[i][j] * x[j];
+        }
+        if (std::fabs(tmp_b - b[i]) > EPS) return false;
+        tmp_b = 0;
+    }
+    return true;
 }
 
 

@@ -25,7 +25,12 @@ int main() {
     for (double re : res2) {
         std::cout << std::fixed << std::setprecision(3) << re << " ";
     }
-    std::cout << "\n";
+    std::cout << "\n\n";
+
+    std::cout << "check solution:\n";
+    bool check = system.check_solution(res1);
+    if (check) std::cout << "OK!\n";
+    else std::cout << "ERROR!\n";
     return 0;
 }
 /*
