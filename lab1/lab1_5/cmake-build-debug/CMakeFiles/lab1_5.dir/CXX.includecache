@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_5/main.cpp
+iomanip
+-
+qr.hpp
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_5/qr.hpp
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_5/matrix.hpp
+iostream
+-
+vector
+-
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_5/qr.hpp
+matrix.hpp
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab1/lab1_5/matrix.hpp
+cmath
+-
+complex
+-
+

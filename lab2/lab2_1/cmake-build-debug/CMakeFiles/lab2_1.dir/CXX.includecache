@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab2/lab2_1/function.hpp
+iostream
+-
+math.h
+-
+vector
+-
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab2/lab2_1/main.cpp
+function.hpp
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab2/lab2_1/function.hpp
+iomanip
+-
+

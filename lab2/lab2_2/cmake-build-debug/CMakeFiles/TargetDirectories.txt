@@ -1,0 +1,3 @@
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab2/lab2_2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab2/lab2_2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab2/lab2_2/cmake-build-debug/CMakeFiles/lab2_2.dir
