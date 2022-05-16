@@ -1,28 +1,31 @@
 #ifndef LAB2_2_LU_HPP
 #define LAB2_2_LU_HPP
 
-
 #include "matrix.hpp"
+
+
 
 static const double EPS = 1e-3;
 
+
 template<class T>
-class lu{
+class lu {
 public:
-    static void lu_decomposition(matrix<T> &, matrix<T> &, matrix<T> &, std::vector<T> &, T &);
-    static std::vector<T> lu_solve(matrix<T> &, matrix<T> &, matrix<T> &, std::vector<T> &);
-    static matrix<T> invertible(matrix<T> &, matrix<T> &, matrix<T> &, std::vector<T> &);
-    static bool check_invertible(matrix<T> &, matrix<T> &);
-    static bool check_result(matrix<T>, std::vector<T>, std::vector<T>);
+    static std::vector<T> solve(matrix<T>, std::vector<T>);
+private:
+    static void lu_decomposition(matrix<T> &, matrix<T> &, matrix<T> &);
+
+    //static matrix<T> invertible(matrix<T> &, matrix<T> &, matrix<T> &, std::vector<T> &);
+    //static bool check_invertible(matrix<T> &, matrix<T> &);
 };
 
 
 template<class T>
-void lu<T>::lu_decomposition(matrix<T> &a, matrix<T> &l, matrix<T> &u, std::vector<T> &b, T &det) {
-    if (a.isEmpty())
+void lu<T>::lu_decomposition(matrix<T> &a, matrix<T> &l, matrix<T> &u) {
+    if (a.is_empty())
         return;
 
-    u = a;
+    u = a; l = a;
     for (size_t i = 0; i < a.size(); i++) {
         for (size_t j = i; j < a.size(); j++) {
             l[j][i] = u[j][i] / u[i][i];
@@ -36,25 +39,23 @@ void lu<T>::lu_decomposition(matrix<T> &a, matrix<T> &l, matrix<T> &u, std::vect
         }
         for (size_t i = k; i < a.size(); i++) {
             for (size_t j = k - 1; j < a.size(); j++) {
-                u[i][j] = u[i][j] - l[i][k-1] * u[k-1][j];
+                u[i][j] = u[i][j] - l[i][k - 1] * u[k - 1][j];
             }
         }
-    }
-
-    for (size_t i = 0; i < a.size(); i++) {
-        det *= u[i][i];
     }
 }
 
 template<class T>
-std::vector<T> lu<T>::lu_solve(matrix<T> &a, matrix<T> &l, matrix<T> &u, std::vector<T> &b) {
+std::vector<T> lu<T>::solve(matrix<T> a, std::vector<T> b) {
+    matrix<T> l, u;
+    lu_decomposition(a, l, u);
     size_t n = a.size();
     std::vector<T> x(n, 0);
     std::vector<T> z(n, 0);
     T sum = 0;
     for (size_t i = 0; i < n; i++) {
         for (size_t j = 0; j < i; j++) {
-            sum += l[i][j]*z[j];
+            sum += l[i][j] * z[j];
         }
         z[i] = b[i] - sum;
         sum = 0;
@@ -68,45 +69,6 @@ std::vector<T> lu<T>::lu_solve(matrix<T> &a, matrix<T> &l, matrix<T> &u, std::ve
         if (i == 0) break;
     }
     return x;
-}
-
-template<class T>
-matrix<T> lu<T>::invertible(matrix<T> &a, matrix<T> &l, matrix<T> &u, std::vector<T> &b) {
-    size_t n = a.size();
-    matrix<T> res(n); std::vector<T> solution(n, 0);
-    for (size_t i = 0; i < n; i++) {
-        std::vector<T> y(n, 0);
-        y[i] = 1;
-        std::vector<T> tmp_res = lu_solve(a, l, u, y);
-        for (size_t j = 0; j < n; j++) {
-            res[j][i] = tmp_res[j];
-        }
-    }
-    return  res;
-}
-
-template<class T>
-bool lu<T>::check_invertible(matrix<T> &a, matrix<T> &b) {
-    size_t n = a.size();
-    matrix<T> e; e.identity(n);
-    matrix<T> result = a * b;
-    for (size_t i = 0; i < n; i++) {
-        if (std::abs(result[i][i] - e[i][i]) > EPS) return false;
-    }
-    return true;
-}
-
-template<class T>
-bool lu<T>::check_result(matrix<T> a, std::vector<T> x, std::vector<T> b) {
-    T tmp_b = 0; size_t n = a.size();
-    for (size_t i = 0; i < n; i++) {
-        for (size_t j = 0; j < n; j++) {
-            tmp_b += a[i][j] * x[j];
-        }
-        if (std::abs(tmp_b - b[i]) > EPS) return false;
-        tmp_b = 0;
-    }
-    return true;
 }
 
 

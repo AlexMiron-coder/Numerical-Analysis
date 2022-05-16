@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "math.h"
 
 
 template<class T>
@@ -22,6 +23,17 @@ std::vector<T> operator - (const std::vector<T> &lhs, const std::vector<T> &rhs)
     }
     return result;
 }
+
+
+template<class T>
+T norm(std::vector<T> vec) {
+    T max = std::abs(vec[0]);
+    for (auto &v : vec) {
+        if (std::abs(v) > max) max = std::abs(v);
+    }
+    return max;
+}
+
 
 
 template<class T>

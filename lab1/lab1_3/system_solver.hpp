@@ -13,15 +13,17 @@ public:
     system_solver(size_t, T);
     std::vector<T> fixed_point_iterations(size_t &);
     std::vector<T> seidel(size_t &);
+    bool check_solution(std::vector<T>);
+    void check_norm();
+private:
     std::pair<matrix<T>, std::vector<T>> jacobi_method();
     T norm_vec(std::vector<T>);
     T norm_matrix(matrix<T>);
     T sum_abs(std::vector<T>);
-    bool check_solution(std::vector<T>);
-private:
     matrix<T> a;
     std::vector<T> b;
     T eps;
+    T __norm_alpha;
 };
 
 
@@ -91,6 +93,7 @@ std::vector<T> system_solver<T>::fixed_point_iterations(size_t &iter) {
     T eps_k = eps + 1;
     size_t k = 0;
     T norm_alpha = norm_matrix(alpha_beta.first);
+    __norm_alpha = norm_alpha;
 
     if (norm_alpha > 1) {
         std::cout << "error!\n";
@@ -113,6 +116,7 @@ std::vector<T> system_solver<T>::seidel(size_t &iter) {
     T eps_k = eps + 1;
     size_t k = 0;
     T norm_alpha = norm_matrix(alpha_beta.first);
+    __norm_alpha = norm_alpha;
     T norm_c = norm_matrix(alpha_beta.first);
 
     while (eps_k >= eps) {
@@ -145,6 +149,11 @@ bool system_solver<T>::check_solution(std::vector<T> x) {
         tmp_b = 0;
     }
     return true;
+}
+
+template<class T>
+void system_solver<T>::check_norm() {
+    std::cout << "||Alpha|| = " << __norm_alpha << "\n";
 }
 
 

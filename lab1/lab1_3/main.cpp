@@ -2,7 +2,7 @@
 #include "system_solver.hpp"
 
 int main() {
-    size_t n; double eps;
+    size_t n; double eps; bool check;
     std::cin >> n >> eps;
     system_solver<double> system(n, eps);
     size_t k1; size_t k2;
@@ -12,6 +12,7 @@ int main() {
     std::cout << "Fixed-point iteration method:\n";
     std::vector<double> res1 = system.fixed_point_iterations(k1);
     std::cout << "num of iterations: " << k1 << "\n";
+    system.check_norm();
     std::cout << "solution:\n";
     for (double re : res1) {
         std::cout << std::fixed << std::setprecision(3) << re << " ";
@@ -21,6 +22,7 @@ int main() {
     std::cout << "Seidel method:\n";
     std::vector<double> res2 = system.seidel(k2);
     std::cout << "num of iterations: " << k2 << "\n";
+    system.check_norm();
     std::cout << "solution:\n";
     for (double re : res2) {
         std::cout << std::fixed << std::setprecision(3) << re << " ";
@@ -28,7 +30,7 @@ int main() {
     std::cout << "\n\n";
 
     std::cout << "check solution:\n";
-    bool check = system.check_solution(res1);
+    check = system.check_solution(res1);
     if (check) std::cout << "OK!\n";
     else std::cout << "ERROR!\n";
     return 0;
