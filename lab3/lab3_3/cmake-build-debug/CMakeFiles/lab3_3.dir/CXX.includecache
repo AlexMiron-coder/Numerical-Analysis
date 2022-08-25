@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_3/main.cpp
+iostream
+-
+squares.hpp
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_3/squares.hpp
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_3/numerical.h
+iostream
+-
+vector
+-
+math.h
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_3/math.h
+string
+-
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_3/squares.hpp
+numerical.h
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_3/numerical.h
+
