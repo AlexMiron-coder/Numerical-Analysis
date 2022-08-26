@@ -10,13 +10,16 @@ int main() {
     for (size_t i = 0; i < n; i++) std::cin >> x[i];
     for (size_t i = 0; i < n; i++) std::cin >> y[i];
 
-    std::cout << "Приближенный многочлен 1-ой степени" << std::endl;
+    std::cout << "Приближающий многочлен 1-ой степени" << std::endl;
     snm::polynomial_t<double> polynomial1 = squares<double>::lsm(x, y, 2);
     std::cout << polynomial1 << std::endl;
 
-    std::cout << "Приближенный многочлен 2-ой степени" << std::endl;
+    std::cout << squares<double>::square_error(x ,y, polynomial1) << std::endl;
+
+    std::cout << "Приближающий многочлен 2-ой степени" << std::endl;
     snm::polynomial_t<double> polynomial2 = squares<double>::lsm(x, y, 3);
     std::cout << polynomial2 << std::endl;
+    std::cout << squares<double>::square_error(x ,y, polynomial2) << std::endl;
     return 0;
 }
 

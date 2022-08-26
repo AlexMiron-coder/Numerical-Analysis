@@ -21,6 +21,13 @@ public:
         std::vector<T> dx = snm::lu<T>::solve(g, z);
         return (snm::polynomial_t<T>(dx));
     }
+    static T square_error(std::vector<T> x, std::vector<T> y, snm::polynomial_t<double>& pol) {
+        T res = 0;
+        for (uint i = 0; i < x.size(); ++i) {
+            res += (y[i] - pol(x[i])) * (y[i] - pol(x[i]));
+        }
+        return res;
+    }
 private:
 };
 
