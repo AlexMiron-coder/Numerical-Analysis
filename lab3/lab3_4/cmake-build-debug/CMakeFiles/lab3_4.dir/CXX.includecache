@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_4/differentiation.hpp
+iostream
+-
+vector
+-
+
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_4/main.cpp
+differentiation.hpp
+/home/aleksey/MAI/GitHub/Numerical-Analysis/lab3/lab3_4/differentiation.hpp
+
