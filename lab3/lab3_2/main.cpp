@@ -9,6 +9,7 @@ int main() {
     for (size_t i = 0; i < n; i++) std::cin >> x[i];
     for (size_t i = 0; i < n; i++) std::cin >> y[i];
     spline_t<double> spline(x, y, n);
+
     std::cout << spline(x0) << std::endl;
     return 0;
 }
